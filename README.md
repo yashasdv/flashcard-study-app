@@ -31,3 +31,6 @@ This project demonstrates:
 - Conflict resolution
 - Merge back into main
 - GitHub submission
+## Contributors
+- Yashasdv
+- [Rohan.r]
