@@ -73,3 +73,46 @@ button:hover {
     color: #7f8c8d;
     margin: 20px 0;
 }
+
+#flashcards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.flashcard {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+    cursor: pointer;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.flashcard:hover {
+    transform: translateY(-5px);
+    transition: transform 0.2s ease;
+}
+
+.card-content {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    word-break: break-word;
+}
+
+.delete-btn {
+    background: #e74c3c;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}
