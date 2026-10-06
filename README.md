@@ -9,7 +9,7 @@ A simple, beginner-friendly flashcard application to help users study efficientl
 - Flip cards
 - Delete cards
 - Search flashcards
-- Study Mode
+- Study Mode (Focus on one card at a time for better learning)
 - localStorage persistence
 
 ## Technologies

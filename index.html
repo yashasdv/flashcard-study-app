@@ -12,6 +12,7 @@
             <h1>Flashcard Study App</h1>
             <div id="stats">
                 <span id="card-count">0 Flashcards</span>
+                <button id="start-study-btn" style="display: none; margin-left: 10px;">Start Study Mode</button>
             </div>
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="Search flashcards...">
@@ -41,6 +42,27 @@
             </section>
         </main>
     </div>
+
+    <!-- Study Mode Overlay -->
+    <div id="study-mode-overlay" style="display: none;">
+        <div class="study-mode-content">
+            <button id="exit-study-btn">Exit Study Mode</button>
+            <div class="study-card-container">
+                <div class="flashcard" id="study-flashcard">
+                    <div class="card-inner">
+                        <div class="card-front" id="study-question"></div>
+                        <div class="card-back" id="study-answer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="study-controls">
+                <button id="show-answer-btn">Show Answer</button>
+                <button id="next-card-btn">Next Card</button>
+            </div>
+            <div id="study-progress"></div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
