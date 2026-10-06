@@ -4,6 +4,7 @@ const answerInput = document.getElementById('answer');
 const grid = document.getElementById('flashcards-grid');
 const emptyMessage = document.getElementById('empty-message');
 const cardCount = document.getElementById('card-count');
+const searchInput = document.getElementById('search-input');
 
 let flashcards = JSON.parse(localStorage.getItem('flashcards')) || [];
 
@@ -12,36 +13,35 @@ function saveFlashcards() {
     updateUI();
 }
 
-function updateUI() {
+function updateUI(filteredCards = flashcards) {
     grid.innerHTML = '';
-    cardCount.textContent = `${flashcards.length} Flashcard${flashcards.length !== 1 ? 's' : ''}`;
+    cardCount.textContent = `${filteredCards.length} Flashcard${filteredCards.length !== 1 ? 's' : ''}`;
     
-    if (flashcards.length === 0) {
+    if (filteredCards.length === 0) {
         emptyMessage.style.display = 'block';
     } else {
         emptyMessage.style.display = 'none';
-        flashcards.forEach((card, index) => {
+        filteredCards.forEach((card) => {
+            const index = flashcards.indexOf(card);
             const cardEl = document.createElement('div');
-            cardEl.className = 'flashcard';
+            cardEl.className = 'flashcard-container';
             cardEl.innerHTML = `
-                <div class="card-content">
-                    <p class="question"><strong>Q:</strong> ${card.question}</p>
-                    <p class="answer" style="display: none;"><strong>A:</strong> ${card.answer}</p>
+                <div class="flashcard">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <p><strong>Q:</strong> ${card.question}</p>
+                        </div>
+                        <div class="card-back">
+                            <p><strong>A:</strong> ${card.answer}</p>
+                        </div>
+                    </div>
                 </div>
                 <button class="delete-btn" onclick="deleteCard(event, ${index})">Delete</button>
             `;
             
             // Toggle answer on click
-            cardEl.querySelector('.card-content').addEventListener('click', () => {
-                const answer = cardEl.querySelector('.answer');
-                const question = cardEl.querySelector('.question');
-                if (answer.style.display === 'none') {
-                    answer.style.display = 'block';
-                    question.style.display = 'none';
-                } else {
-                    answer.style.display = 'none';
-                    question.style.display = 'block';
-                }
+            cardEl.querySelector('.flashcard').addEventListener('click', function() {
+                this.classList.toggle('flipped');
             });
             
             grid.appendChild(cardEl);
@@ -62,10 +62,19 @@ form.addEventListener('submit', (e) => {
 });
 
 function deleteCard(event, index) {
-    event.stopPropagation(); // Prevent card from flipping
+    event.stopPropagation();
     flashcards.splice(index, 1);
     saveFlashcards();
 }
+
+searchInput.addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const filtered = flashcards.filter(card => 
+        card.question.toLowerCase().includes(term) || 
+        card.answer.toLowerCase().includes(term)
+    );
+    updateUI(filtered);
+});
 
 // Initial load
 updateUI();
