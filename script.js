@@ -5,17 +5,34 @@ const grid = document.getElementById('flashcards-grid');
 const emptyMessage = document.getElementById('empty-message');
 const cardCount = document.getElementById('card-count');
 const searchInput = document.getElementById('search-input');
+const startStudyBtn = document.getElementById('start-study-btn');
+
+// Study Mode Elements
+const studyModeOverlay = document.getElementById('study-mode-overlay');
+const exitStudyBtn = document.getElementById('exit-study-btn');
+const studyFlashcard = document.getElementById('study-flashcard');
+const studyQuestion = document.getElementById('study-question');
+const studyAnswer = document.getElementById('study-answer');
+const showAnswerBtn = document.getElementById('show-answer-btn');
+const nextCardBtn = document.getElementById('next-card-btn');
+const studyProgress = document.getElementById('study-progress');
 
 let flashcards = JSON.parse(localStorage.getItem('flashcards')) || [];
+let currentStudyIndex = 0;
 
 function saveFlashcards() {
     localStorage.setItem('flashcards', JSON.stringify(flashcards));
     updateUI();
 }
 
+function updateStudyButton() {
+    startStudyBtn.style.display = flashcards.length > 0 ? 'inline-block' : 'none';
+}
+
 function updateUI(filteredCards = flashcards) {
     grid.innerHTML = '';
     cardCount.textContent = `${filteredCards.length} Flashcard${filteredCards.length !== 1 ? 's' : ''}`;
+    updateStudyButton();
     
     if (filteredCards.length === 0) {
         emptyMessage.style.display = 'block';
@@ -74,6 +91,42 @@ searchInput.addEventListener('input', (e) => {
         card.answer.toLowerCase().includes(term)
     );
     updateUI(filtered);
+});
+
+// Study Mode Logic
+startStudyBtn.addEventListener('click', () => {
+    if (flashcards.length === 0) return;
+    currentStudyIndex = 0;
+    studyModeOverlay.style.display = 'flex';
+    showStudyCard();
+});
+
+exitStudyBtn.addEventListener('click', () => {
+    studyModeOverlay.style.display = 'none';
+});
+
+function showStudyCard() {
+    studyFlashcard.classList.remove('flipped');
+    const card = flashcards[currentStudyIndex];
+    studyQuestion.innerHTML = `<p><strong>Q:</strong> ${card.question}</p>`;
+    studyAnswer.innerHTML = `<p><strong>A:</strong> ${card.answer}</p>`;
+    studyProgress.textContent = `Card ${currentStudyIndex + 1} of ${flashcards.length}`;
+}
+
+showAnswerBtn.addEventListener('click', () => {
+    studyFlashcard.classList.add('flipped');
+});
+
+nextCardBtn.addEventListener('click', () => {
+    currentStudyIndex++;
+    if (currentStudyIndex >= flashcards.length) {
+        currentStudyIndex = 0;
+    }
+    showStudyCard();
+});
+
+studyFlashcard.addEventListener('click', function() {
+    this.classList.toggle('flipped');
 });
 
 // Initial load

@@ -154,6 +154,65 @@ button:hover {
     background: #c0392b;
 }
 
+/* Study Mode Styles */
+#start-study-btn {
+    background: #9b59b6;
+}
+
+#study-mode-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.study-mode-content {
+    width: 90%;
+    max-width: 600px;
+    background: #f4f7f6;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#exit-study-btn {
+    background: #e74c3c;
+    margin-bottom: 20px;
+}
+
+.study-card-container {
+    height: 250px;
+    margin: 20px 0;
+}
+
+.study-card-container .flashcard {
+    height: 100%;
+    margin-bottom: 0;
+}
+
+.study-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+#show-answer-btn {
+    background: #f39c12;
+}
+
+#next-card-btn {
+    background: #2ecc71;
+}
+
+#study-progress {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
     #flashcards-grid {
