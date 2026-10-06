@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Study App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Flashcard Study App</h1>
+            <div id="stats">
+                <span id="card-count">0 Flashcards</span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search flashcards...">
+            </div>
+        </header>
+
+        <main>
+            <section class="form-section">
+                <h2>Add New Flashcard</h2>
+                <form id="flashcard-form">
+                    <div class="form-group">
+                        <label for="question">Question</label>
+                        <textarea id="question" required placeholder="Enter question"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="answer">Answer</label>
+                        <textarea id="answer" required placeholder="Enter answer"></textarea>
+                    </div>
+                    <button type="submit" id="add-btn">Add Flashcard</button>
+                </form>
+            </section>
+
+            <section class="cards-section">
+                <h2>Your Flashcards</h2>
+                <div id="empty-message">No flashcards found. Create one above!</div>
+                <div id="flashcards-grid"></div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
